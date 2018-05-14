@@ -34,7 +34,7 @@ RSpec.describe 'Items Api' do
       end
 
       it 'returns not found message' do
-        expect(response.body).to match(/Couldn't find Item/)
+        expect(response.body).to match(/Couldn't find Todo/)
       end
     end
   end
@@ -59,6 +59,8 @@ RSpec.describe 'Items Api' do
       before { post "/todos/#{todo_id}/items", params: {} }
 
       it 'returns status code 422' do
+
+        puts "----------------------------------- #{response.body}"
         expect(response).to have_http_status(422)
       end
 
@@ -100,6 +102,9 @@ RSpec.describe 'Items Api' do
       end
 
 
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Item/)
+      end
 
     end
 
@@ -113,7 +118,7 @@ RSpec.describe 'Items Api' do
     context 'when item exists' do
 
       it 'returns status code 204' do
-        expect(respons).to have_http_status(204)
+        expect(response).to have_http_status(204)
       end
 
     end

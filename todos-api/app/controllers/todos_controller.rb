@@ -10,6 +10,7 @@ class TodosController < ApplicationController
 
   # create todo - post
   def create
+    puts '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& todo create'
     @todo = Todo.create!(todo_params)
     json_response(@todo, :created)
   end

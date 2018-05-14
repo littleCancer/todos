@@ -1,0 +1,15 @@
+current directory: /Users/stevanrakic/Smart/Rails/Todos/todos-api/vendor/bundle/ruby/2.5.0/gems/bootsnap-1.3.0/ext/bootsnap
+/Users/stevanrakic/.rvm/rubies/ruby-2.5.1/bin/ruby -r ./siteconf20180514-97890-15ywqwv.rb extconf.rb
+creating Makefile
+
+current directory: /Users/stevanrakic/Smart/Rails/Todos/todos-api/vendor/bundle/ruby/2.5.0/gems/bootsnap-1.3.0/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /Users/stevanrakic/Smart/Rails/Todos/todos-api/vendor/bundle/ruby/2.5.0/gems/bootsnap-1.3.0/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/stevanrakic/Smart/Rails/Todos/todos-api/vendor/bundle/ruby/2.5.0/gems/bootsnap-1.3.0/ext/bootsnap
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 bootsnap.bundle ./.gem.20180514-97890-1jc2m41/bootsnap

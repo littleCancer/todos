@@ -9,10 +9,10 @@ RSpec.describe AuthorizeApiRequest do
   let(:header) { { 'Authorization' => token_generator(user.id) } }
 
   # Invalid request subject
-  subject(:invalid_request_obj) { described_class.new( {} ) }
+  subject(:invalid_request_obj) { described_class.new({}) }
 
   # Valid request subject
-  subject(:request_obj) { described_class.new( header ) }
+  subject(:request_obj) { described_class.new(header) }
 
   # Test Suite for AuthorizeApiRequest#call
   # This is our entry point into the service class
@@ -37,7 +37,7 @@ RSpec.describe AuthorizeApiRequest do
         it 'raises a MissingToken error' do
 
           expect { invalid_request_obj.call }
-              .to raise_error(ExceptionHandler::MissingToken, 'Missing Token')
+              .to raise_error(ExceptionHandler::MissingToken, 'Missing token')
 
 
         end
@@ -53,7 +53,7 @@ RSpec.describe AuthorizeApiRequest do
         it 'raises an InvalidToken error' do
 
           expect { invalid_request_obj.call }
-              .to raise_error(ExceptionHandler::InvalidToken, /Invalid Token/)
+              .to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
 
         end
 

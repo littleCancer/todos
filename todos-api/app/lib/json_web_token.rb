@@ -10,10 +10,11 @@ class JsonWebToken
 
     # sign token with application secret
 
-    puts "================ payload #{payload} "
+    puts "================ payload #{payload}  hmac #{HMAC_SECRET} "
     JWT.encode(payload, HMAC_SECRET)
 
   end
+
 
   def self.decode(token)
 

@@ -36,8 +36,8 @@ RSpec.describe AuthorizeApiRequest do
 
         it 'raises a MissingToken error' do
 
-          expect { invalid_request_obj.call }.to
-              raise_error(ExceptionHandler::MissingToken, 'Missing Token')
+          expect { invalid_request_obj.call }
+              .to raise_error(ExceptionHandler::MissingToken, 'Missing Token')
 
 
         end
@@ -52,8 +52,8 @@ RSpec.describe AuthorizeApiRequest do
 
         it 'raises an InvalidToken error' do
 
-          expect { invalid_request_obj.call }.to
-            raise_error(ExceptionHandler::InvalidToken, /Invalid Token/)
+          expect { invalid_request_obj.call }
+              .to raise_error(ExceptionHandler::InvalidToken, /Invalid Token/)
 
         end
 
@@ -66,8 +66,8 @@ RSpec.describe AuthorizeApiRequest do
         subject(:request_obj) { described_class.new(header) }
 
         it 'raises ExceptionHandler::ExpiredSignature error' do
-          expect { request_obj.call }.to
-                raise_error(ExceptionHandler::InvalidToken, /Signature has expired/)
+          expect { request_obj.call }
+              .to raise_error(ExceptionHandler::InvalidToken, /Signature has expired/)
         end
 
       end
@@ -78,8 +78,8 @@ RSpec.describe AuthorizeApiRequest do
         subject(:invalid_request_obj) { described_class.new(header) }
 
         it 'handles JWT::DecodeError' do
-          expect { invalid_request_obj.call }.to
-          raise_error(ExceptionHandler::InvalidToken, /Not enough or too many segments/)
+          expect { invalid_request_obj.call }
+              .to raise_error(ExceptionHandler::InvalidToken, /Not enough or too many segments/)
         end
 
       end

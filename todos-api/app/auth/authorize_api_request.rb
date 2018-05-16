@@ -3,7 +3,7 @@ class AuthorizeApiRequest
 
   def initialize(headers = {})
 
-    puts "rendering headers ************* #{headers}"
+    # puts "rendering headers ************* #{headers}"
     @headers = headers
   end
 

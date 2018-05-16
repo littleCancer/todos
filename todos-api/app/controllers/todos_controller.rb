@@ -4,14 +4,15 @@ class TodosController < ApplicationController
 
   # show all - get
   def index
-    @todos = Todo.all
-    json_response(@todos)
+    @todos = current_user.todos
+    response = json_response(@todos)
+    # puts "response ============**============= #{@todos.size} ===== #{current_user.todos}"
+    response
   end
 
   # create todo - post
   def create
-    puts '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& todo create'
-    @todo = Todo.create!(todo_params)
+    @todo = current_user.todos.create!(todo_params)
     json_response(@todo, :created)
   end
 

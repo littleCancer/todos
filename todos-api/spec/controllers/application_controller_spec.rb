@@ -25,7 +25,7 @@ RSpec.describe ApplicationController, type: :controller do
 
     context  'when auth token is missing' do
 
-      before { allow(respect).to receive(:headers).and_return(invalid_headers) }
+      before { allow(request).to receive(:headers).and_return(invalid_headers) }
 
       it 'raises missing token error' do
         expect { subject.instance_eval { authorize_request }  }

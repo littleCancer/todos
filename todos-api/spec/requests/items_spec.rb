@@ -2,16 +2,19 @@ require 'rails_helper'
 
 RSpec.describe 'Items Api' do
 
-  let!(:todo)    { create(:todo) }
+  let(:user) { create(:user) }
+
+  let!(:todo)    { create(:todo, created_by: user.id) }
   let!(:items)   { create_list(:item, 20, todo_id: todo.id) }
 
   let(:todo_id) { todo.id }
   let(:id) { items.first.id }
+  let(:headers) { valid_headers }
 
   # Test suite for GET /todos/:todo_id/items
   describe 'GET /todos/:todo_id/items' do
 
-    before { get "/todos/#{todo_id}/items" }
+    before { get "/todos/#{todo_id}/items", headers: headers }
 
     context 'when todo exists' do
 
@@ -39,14 +42,52 @@ RSpec.describe 'Items Api' do
     end
   end
 
+  describe "GET /todos/:todo_id/items/:id" do
+
+    before { get "/todos/#{todo_id}/items/#{id}", headers: headers }
+
+    context 'when todo item exists' do
+
+      it 'returns status code 200' do
+
+        expect(response).to have_http_status(200)
+
+      end
+
+      it 'returns the item' do
+        # puts "idd #{id} response ============*#{json[:id]}*============= #{json}"
+        expect(json['id']).to eq(id)
+      end
+
+    end
+
+    context 'when todo item does not exist' do
+
+      let(:id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns error message' do
+        # puts "response ============**============= #{response.body}"
+        expect(response.body).to match(/Couldn't find Item/)
+      end
+
+    end
+
+
+
+  end
+
   # Test suite for POST /todos/:todo_id/items
   describe 'POST /todos/:todo_id/items' do
 
-    let(:valid_attributes) { { name: 'Visit Narnia', done: false } }
+    let(:valid_attributes) { { name: 'Visit Narnia', done: false }.to_json }
 
     context 'when attributes are valid' do
 
-      before { post "/todos/#{todo_id}/items", params: valid_attributes }
+      before { post "/todos/#{todo_id}/items", params: valid_attributes, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
@@ -56,11 +97,11 @@ RSpec.describe 'Items Api' do
 
     context 'when attributes are not valid' do
 
-      before { post "/todos/#{todo_id}/items", params: {} }
+      before { post "/todos/#{todo_id}/items", params: {}, headers: headers }
 
       it 'returns status code 422' do
 
-        puts "----------------------------------- #{response.body}"
+        # puts "----------------------------------- #{response.body}"
         expect(response).to have_http_status(422)
       end
 
@@ -76,9 +117,9 @@ RSpec.describe 'Items Api' do
 
   describe 'PUT /todos/:todo_id/items/:id' do
 
-    let(:valid_attributes) { { name: 'Mozart' } }
+    let(:valid_attributes) { { name: 'Mozart' }.to_json }
 
-    before { put "/todos/#{todo_id}/items/#{id}", params: valid_attributes }
+    before { put "/todos/#{todo_id}/items/#{id}", params: valid_attributes, headers: headers }
 
     context 'when item exists' do
 
@@ -113,7 +154,7 @@ RSpec.describe 'Items Api' do
   # Test suite for DELETE /todos/:id
   describe 'DELETE /todos/:todo_id/items/id' do
 
-    before { delete "/todos/#{todo_id}/items/#{id}" }
+    before { delete "/todos/#{todo_id}/items/#{id}", headers: headers }
 
     context 'when item exists' do
 

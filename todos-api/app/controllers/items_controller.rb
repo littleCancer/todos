@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
 
   # GET /todos/:todo_id/items/:id
   def show
+    puts "----------------------------------------------- #{@item}"
     json_response @item
   end
 
@@ -20,7 +21,7 @@ class ItemsController < ApplicationController
 
     mitem_params = item_params
 
-    puts "********************** ciiiiiiiiiiicko #{@todo.items}  item #{@item} imanema"
+    # puts "********************** ciiiiiiiiiiicko #{@todo.items}  item #{@item} imanema"
     @todo.items.create!(mitem_params)
     json_response @todo, :created
   end
@@ -49,6 +50,7 @@ class ItemsController < ApplicationController
   end
 
   def set_todo
+    puts "========================================== #{params}"
     @todo = Todo.find(params[:todo_id])
   end
 
